@@ -80,7 +80,7 @@ def rewrite_streamlit_components():
 load_streamlit_components()
 
 
-if os.getenv('STREAMLIT_CDN_ENABLED') == 'true' and (not os.path.exists('/.streamlit_rewrite_done')) and STREMALIT_CDN_HOST: # noqa
+if STREMALIT_CDN_HOST and (not os.path.exists('/.streamlit_rewrite_done')):
     rewrite_streamlit()
     rewrite_streamlit_components()
 
