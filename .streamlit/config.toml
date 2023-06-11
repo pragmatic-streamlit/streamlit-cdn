@@ -1,0 +1,16 @@
+[theme]
+primaryColor="#F63366"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#f9f6f1"
+textColor="#262730"
+font="sans serif"
+
+[server]
+enableStaticServing = true
+maxUploadSize = 200
+headless = true
+enableCORS=true
+enableWebsocketCompression=true
+
+[client]
+toolbarMode = "minimal"

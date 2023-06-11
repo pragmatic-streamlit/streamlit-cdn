@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Daemon: Caddy",
+      "command": "caddy run --config Caddyfile",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "name": "Streamlit: CDN Example",
+      "type": "python",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "module": "streamlit",
+      "env": {},
+      "args": ["run", "--server.port", "8501", "example.py"],
+      "justMyCode": false
+    },
+  ]
+}
