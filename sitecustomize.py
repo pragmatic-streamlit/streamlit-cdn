@@ -10,14 +10,32 @@ STREMALIT_CDN_HOST = os.getenv('STREMALIT_CDN_HOST')
 STREMALIT_CDN_PATH_PREFIX = os.getenv('STREMALIT_CDN_PATH_PREFIX', '')
 
 
+def is_public_ref(link):
+    if link.startswith('//'):
+        return True
+    elif link.startswith('http://') or link.startswith('https://'):
+        return True
+    elif link.startswith('/'):
+        return True
+    return False
+
+
+def clean_relative_path(path):
+    if path.startswith('./'):
+        path = path[2:]
+    return path
+
+
 def inplace_rewrite_resources(root: BeautifulSoup,
                               cdn_host: str, prefix: str = ''):
     for link in root.find_all('link'):
-        if 'href' in link.attrs and link.attrs['href'].startswith('./'):
-            link.attrs['href'] = f"//{cdn_host}{prefix}{link.attrs['href'].lstrip('.')}" # noqa
+        if 'href' in link.attrs and not is_public_ref(link.attrs['href']):
+            relative_path = clean_relative_path(link.attrs['href'])
+            link.attrs['href'] = f"//{cdn_host}{prefix}/{relative_path}"
     for script in root.find_all('script'):
-        if 'src' in script.attrs and script.attrs['src'].startswith('./'):
-            script.attrs['src'] = f"//{cdn_host}{prefix}{script.attrs['src'].lstrip('.')}"  # noqa
+        if 'src' in script.attrs and not is_public_ref(script.attrs['src']):
+            relative_path = clean_relative_path(script.attrs['src'])
+            script.attrs['src'] = f"//{cdn_host}{prefix}/{relative_path}"
 
 
 def rewrite_content(content: str, cdn_host: str, prefix: str = ''):

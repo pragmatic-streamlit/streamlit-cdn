@@ -21,12 +21,9 @@ http://example.127.0.0.1.nip.io {
         output stdout
         level DEBUG
     }
-    reverse_proxy /* localhost:8501
+    reverse_proxy /* localhost:8503
 }
 
-
-if abspath.endswith("index.html"):
-    contents = rewrite(contents, 'cdn.127.0.0.1.nip.io', '/example.127.0.0.1.nip.io/component/' + component_name)
 
 http://cdn.127.0.0.1.nip.io {
     log {
